@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class PrimeMaster extends UntypedActor {
-        private static final int WORKER_COUNT = 12;
-        private final List<Long> primeResults = new ArrayList<>();
-        private int resultCount = 0;
+    private static final int WORKER_COUNT = 12;
+    private final List<Long> primeResults = new ArrayList<>();
+    private int resultCount = 0;
 
     @Override
     public void onReceive(Object msg) throws Exception {
@@ -31,9 +31,8 @@ public class PrimeMaster extends UntypedActor {
                 }
 
                 // send partition to a new worker
-                getContext().actorOf(Props.create(PrimeWorker.class))
-                        .tell(new SegmentMessage(sm.getStart() + cnt * segLength,
-                                rightBound), getSelf());
+                getContext().actorOf(Props.create(PrimeWorker.class)).tell(
+                        new SegmentMessage(sm.getStart() + cnt * segLength, rightBound), getSelf());
             }
         }
 

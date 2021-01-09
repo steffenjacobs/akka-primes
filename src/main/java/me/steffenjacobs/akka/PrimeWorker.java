@@ -12,17 +12,14 @@ public class PrimeWorker extends UntypedActor {
         // receive partition from PrimeMaster
         if (msg instanceof SegmentMessage) {
             List<Long> primes = new ArrayList<>();
-            for (long i = ((SegmentMessage) msg).getStart(); i <
-                    ((SegmentMessage) msg).getEnd(); i++) {
-
+            for (long i = ((SegmentMessage) msg).getStart(); i < ((SegmentMessage) msg).getEnd(); i++) {
                 // add to result, if element is a prime number
                 if (isPrime(i)) {
                     primes.add(i);
                 }
             }
             // send resulting subset of primes to PrimeMaster
-            this.getSender().tell(new PrimeResult(primes),
-                    this.getSelf());
+            this.getSender().tell(new PrimeResult(primes), this.getSelf());
         }
     }
 
